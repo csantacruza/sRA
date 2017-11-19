@@ -7,7 +7,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class ConsultarConsumo {
 	/**
-	 * Usuario puede ser un usuario restaurante o un cliente de la rotonda
+	 * Usuario puede ser un cliente o un usuario restaurante o un administrador(gerente) de la rotonda.
 	 */
 	@JsonProperty(value = "usuario")
 	private Usuario usuario;
@@ -21,14 +21,24 @@ public class ConsultarConsumo {
 	 */
 	@JsonProperty(value = "agrupar")
 	private String agrupar;
-
+	/**
+	 * Restaurante del cual se quiere buscar
+	 */
 	@JsonProperty(value = "restaurante")
 	private String restaurante;
+	/**
+	 * Rango de fecha - fecha inicial
+	 */
 	@JsonProperty(value = "fechaInicial")
 	private Date fechaInicial;
+	/**
+	 * Rango de fecha - fecha final
+	 */
 	@JsonProperty(value = "fechaFinal")
 	private Date fechaFinal;
-
+	/**
+	 * Respuesta a la busqueda.
+	 */
 	private List<Usuario> clientes;
 
 	public ConsultarConsumo(@JsonProperty(value = "usuario")Usuario usuario,
@@ -54,7 +64,7 @@ public class ConsultarConsumo {
 	public Usuario getUsuario() {
 		return usuario;
 	}
-	
+
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}

@@ -24,6 +24,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 import tm.RotondAndesTM;
 import vos.CancelarPedido;
+import vos.ConsultarConsumo;
 import vos.Pedido;
 import vos.Producto;
 import vos.ProductoIngrediente;
@@ -660,21 +661,21 @@ public class UsuarioServices {
 					for(int x=0;x<verif.getPedido().size();x++)
 					{
 						String string = verif.getPedido().get(x);
-//						String[] parte = string.split(";");
-					String[] parte = string.split(",");
+						//						String[] parte = string.split(";");
+						String[] parte = string.split(",");
 						numeroPedido= Integer.parseInt(parte[0]);
 						nombreRestaurante = parte[1];
 						nombreProducto = parte[2];
-//						if(parte[3].contains(".")) {
-//							String[] compo = parte[3].split(".");
-//							for(int z = 0 ; z<compo.length; z++) {
-//								componentes.add(compo[z]);
-//							}
-//						}else {
-//							componentes.add(parte[3]);
-//						}
+						//						if(parte[3].contains(".")) {
+						//							String[] compo = parte[3].split(".");
+						//							for(int z = 0 ; z<compo.length; z++) {
+						//								componentes.add(compo[z]);
+						//							}
+						//						}else {
+						//							componentes.add(parte[3]);
+						//						}
 
-//						Pedido pedido= new Pedido(numeroPedido,nombreProducto,nombreRestaurante,componentes);
+						//						Pedido pedido= new Pedido(numeroPedido,nombreProducto,nombreRestaurante,componentes);
 						tm.addPedidoEquivalencias(pedido, idCliente);
 						precioCompleto += tm.darPrecioProducto(nombreProducto, nombreRestaurante);
 						tm.addPedidoMesa(verif.getNumeroMesa(),numeroPedido);
@@ -777,5 +778,84 @@ public class UsuarioServices {
 		}
 		return Response.status(200).entity(verif).build();
 	}
+
+	/**
+	 *Metodo para consultar el consumo de un usuario 
+	 * @param rol
+	 * @param verif
+	 * @param version
+	 * @return
+	 * @throws Exception
+	 */
+	@GET
+	@Path("{rol: \\d+}/consultarConsumo/{version: \\d+}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response consultarConsumo(@PathParam("rol")Integer rol,
+			ConsultarConsumo verif,@PathParam("version")Integer version ) throws Exception {
+
+
+		RotondAndesTM tm = new RotondAndesTM(getPath());
+		try {
+			if(rol == 1){
+				Usuario cliente1 = tm.buscarUsuarioPorId(verif.getUsuario().getId());
+
+				if(cliente1 != null && cliente1.getContraseña().equals(verif.getUsuario().getContraseña()) && cliente1.getRol() == 1)
+				{
+					if(version == 1) {
+						tm.consultarConsumoCliente(verif);
+					}else if(version == 2){
+
+					}else {
+						throw new Exception("Dirección URL incorrecta");
+					}
+
+				}
+				else{
+					throw new Exception("Id o contraseña invalido");
+				}
+			}else if(rol == 2){
+				Usuario cliente1 = tm.buscarUsuarioPorId(verif.getUsuario().getId());
+
+				if(cliente1 != null && cliente1.getContraseña().equals(verif.getUsuario().getContraseña()) && cliente1.getRol() == 2)
+				{
+					if(version == 1) {
+						tm.consultarConsumoUsuarioRestaurante(verif);
+					}else if(version == 2){
+
+					}else {
+						throw new Exception("Dirección URL incorrecta");
+					}
+
+				}
+				else{
+					throw new Exception("Id o contraseña invalido");
+				}
+			}else if(rol == 3){
+				Usuario cliente1 = tm.buscarUsuarioPorId(verif.getUsuario().getId());
+
+				if(cliente1 != null && cliente1.getContraseña().equals(verif.getUsuario().getContraseña()) && cliente1.getRol() == 3)
+				{
+					if(version == 1) {
+						tm.consultarConsumoAdministrador(verif);
+					}else if(version == 2){
+
+					}else {
+						throw new Exception("Dirección URL incorrecta");
+					}
+
+				}
+				else{
+					throw new Exception("Id o contraseña invalido");
+				}
+			}else{
+				throw new Exception("Dirección URL incorrecta");
+			}
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(verif).build();
+	}
+
 }
 

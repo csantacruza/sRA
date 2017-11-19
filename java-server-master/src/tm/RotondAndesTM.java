@@ -20,6 +20,7 @@ import org.omg.DynamicAny.DynAnyPackage.InvalidValue;
 import org.omg.DynamicAny.DynAnyPackage.TypeMismatch;
 
 import dao.DAOCategorias;
+import dao.DAOConsultarConsumo;
 import dao.DAOEspacios;
 import dao.DAOIngredientes;
 import dao.DAOMenuProducto;
@@ -40,6 +41,7 @@ import dao.DAOZonas;
 import dao.DAOUsuario;
 import dao.DAOZonas;
 import vos.Categoria;
+import vos.ConsultarConsumo;
 import vos.Espacios;
 import vos.Ingrediente;
 import vos.Menu;
@@ -2863,12 +2865,9 @@ public class RotondAndesTM {
 			//////transaccion
 			this.conn = darConexion();
 			daoPedidoMesa.setConn(conn);
-			ArrayList<Integer> lista = daoPedidoMesa.darPedidosMesa(idPedido);
+			//metodo
 			conn.commit();
-			for(int x=0; x<lista.size();x++)
-			{
-				this.cancelarPedido(lista.get(x), idCliente);
-			}
+
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -2881,6 +2880,97 @@ public class RotondAndesTM {
 		} finally {
 			try {
 				daoPedidoMesa.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	public void consultarConsumoCliente(ConsultarConsumo consultarConsumo) throws Exception{
+		DAOConsultarConsumo daoConsultarConsumo = new DAOConsultarConsumo();	
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoConsultarConsumo.setConn(conn);
+			//metodo
+			conn.commit();
+
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoConsultarConsumo.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	public void consultarConsumoUsuarioRestaurante(ConsultarConsumo consultarConsumo) throws Exception{
+		DAOConsultarConsumo daoConsultarConsumo = new DAOConsultarConsumo();	
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoConsultarConsumo.setConn(conn);
+			//metodo
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoConsultarConsumo.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	public void consultarConsumoAdministrador(ConsultarConsumo consultarConsumo) throws Exception{
+		DAOConsultarConsumo daoConsultarConsumo = new DAOConsultarConsumo();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoConsultarConsumo.setConn(conn);
+			//metodo
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoConsultarConsumo.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
