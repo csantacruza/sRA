@@ -109,7 +109,7 @@ public class DAOPedidos {
 		if(disponibilidad > 0)
 		{
 
-			String sql2 = "INSERT INTO PEDIDO (NUMERO_PEDIDO,ID_USUARIO,PRECIO,FECHA,NOMBRE_PRODUCTO, NOMBRE_RESTAURANTE,SERVIDO) VALUES (";
+			String sql2 = "INSERT INTO PEDIDO (NUMERO_PEDIDO,ID_USUARIO,PRECIO,FECHA,NOMBRE_PRODUCTO, NOMBRE_RESTAURANTE,SERVIDO,ESTADO) VALUES (";
 			sql2 += pedido.getNumero_pedido() + ",";
 			sql2 += idCliente + ",";
 			sql2 += precio + ",";
@@ -157,7 +157,7 @@ public class DAOPedidos {
 		if(disponibilidad > 0)
 		{
 
-			String sql2 = "INSERT INTO PEDIDO (NUMERO_PEDIDO,ID_USUARIO,PRECIO,FECHA,NOMBRE_PRODUCTO, NOMBRE_RESTAURANTE,SERVIDO) VALUES (";
+			String sql2 = "INSERT INTO PEDIDO (NUMERO_PEDIDO,ID_USUARIO,PRECIO,FECHA,NOMBRE_PRODUCTO, NOMBRE_RESTAURANTE,SERVIDO,ESTADO) VALUES (";
 			sql2 += pedido.getNumero_pedido() + ",";
 			sql2 += idCliente + ",";
 			sql2 += precio + ",";

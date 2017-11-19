@@ -936,7 +936,7 @@ public class RotondAndesTM {
 		try 
 		{
 			//////transaccion
-			
+
 			//Si es un menu
 			if(buscarMenuPorNombre(Pedido.getNombreProducto()) != null && buscarMenuPorNombre(Pedido.getNombreProducto()).getNombre() != "") {
 
@@ -950,7 +950,7 @@ public class RotondAndesTM {
 					List<String> productos = buscarProductosMenu(Pedido.getNombreProducto());
 					this.conn = darConexion();
 					daoPedidos.setConn(conn);
-					
+
 					//Compruebo que los productos sí son del menu
 					for(int j =  0; j < Pedido.getComponentes().size(); j ++) {
 						String[] parte = Pedido.getComponentes().get(j).split(",");
@@ -963,10 +963,10 @@ public class RotondAndesTM {
 						if(count == productos.size()) {
 							throw new Exception("El ingrediente "+ parte[0] + " no es un ingrediente de ese producto");
 						}
-						
+
 					}
 					List<String> equiv = null;
-					
+
 					//Compuebo si las equivalencias de los productos existen
 					for(int x =  0; x < Pedido.getComponentes().size(); x ++) {
 						String[] parte = Pedido.getComponentes().get(x).split(",");
@@ -975,8 +975,8 @@ public class RotondAndesTM {
 						this.conn = darConexion();
 						daoPedidos.setConn(conn);
 						for( int i = 0; i < equiv.size();i++) {
-							
-							
+
+
 							if(!parte[1].equals(equiv.get(i))) {
 								sum ++;
 							}				
@@ -985,15 +985,16 @@ public class RotondAndesTM {
 							throw new Exception("La equivalencia ingresada no esta registrada en ese restaurante");	
 						}else {
 							daoPedidos.addPedidoCompMenu(Pedido,idCliente);
-							conn.commit();
 						}
-						}
-				
+					}
+
+					conn.commit();
+
 				}
 			}
 			//Si es un producto
 			else if(buscarProductoPorNombre(Pedido.getNombreProducto())!= null && buscarProductoPorNombre(Pedido.getNombreProducto()).getNombre() != "") {
-				
+
 				//Es un pedido de un producto orginal
 				if(Pedido.getComponentes().isEmpty()) {
 					daoPedidos.addPedido(Pedido,idCliente);
@@ -1004,7 +1005,7 @@ public class RotondAndesTM {
 					List<String> ingredientes = buscarIngredientesProducto(Pedido.getNombreProducto());
 					this.conn = darConexion();
 					daoPedidos.setConn(conn);
-					
+
 					//Compruebo que los ingredientes sí son del producto
 					for(int j =  0; j < Pedido.getComponentes().size(); j ++) {
 						String[] parte = Pedido.getComponentes().get(j).split(",");
@@ -1019,7 +1020,7 @@ public class RotondAndesTM {
 						}
 					}
 					List<String> equiv = null;
-					
+
 					//Compuebo si las equivalencias de los ingredientes existen
 					for(int x =  0; x < Pedido.getComponentes().size(); x ++) {
 						String[] parte = Pedido.getComponentes().get(x).split(",");
@@ -1028,7 +1029,7 @@ public class RotondAndesTM {
 						this.conn = darConexion();
 						daoPedidos.setConn(conn);
 						for( int i = 0; i < equiv.size();i++) {
-							
+
 							if(!parte[1].equals(equiv.get(i))) {
 								sum ++;
 							}				
@@ -1042,7 +1043,7 @@ public class RotondAndesTM {
 					}		
 
 					conn.commit();
-					}
+				}
 			}else {
 				throw new Exception("No existe un menú o producto con ese nombre");
 			}
@@ -1069,7 +1070,7 @@ public class RotondAndesTM {
 		}
 	}
 
-	
+
 	//	public void addIngredienteProducto(VerificacionProducto ingProducto) throws Exception {
 	//		DAOIngredienteProducto daoIngredienteProducto = new DAOIngredienteProducto();
 	//		try 
@@ -2662,7 +2663,7 @@ public class RotondAndesTM {
 		}
 		return equivalencias;
 	}
-	
+
 	public List<String> buscarEquivalenciasIngrediente(String nombreIngrediente,String nombreRestaurante) throws Exception {
 		List<String> equivalencias;
 		DAORegistrarEqIngrediente daoRegistrarEqIngrediente = new DAORegistrarEqIngrediente();
@@ -2853,7 +2854,7 @@ public class RotondAndesTM {
 				throw exception;
 			}
 		}
-		
+
 	}
 	public void cancelarPedidoMesa(Integer idPedido, Integer idCliente) throws Exception{
 		DAOPedidoMesa daoPedidoMesa = new DAOPedidoMesa();	
