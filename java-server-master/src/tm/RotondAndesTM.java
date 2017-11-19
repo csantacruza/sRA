@@ -2889,14 +2889,14 @@ public class RotondAndesTM {
 			}
 		}
 	}
-	public void consultarConsumoCliente(ConsultarConsumo consultarConsumo) throws Exception{
+	public void consultarConsumoV1Cliente(ConsultarConsumo cC) throws Exception{
 		DAOConsultarConsumo daoConsultarConsumo = new DAOConsultarConsumo();	
 		try 
 		{
 			//////transaccion
 			this.conn = darConexion();
 			daoConsultarConsumo.setConn(conn);
-			//metodo
+			daoConsultarConsumo.consultarConsumoCliente(cC.getUsuario().getId(),cC.getRestaurante(),cC.getFechaInicial(),cC.getFechaFinal(),cC.getOrdenar(),cC.getAgrupar());
 			conn.commit();
 
 
@@ -2920,7 +2920,7 @@ public class RotondAndesTM {
 			}
 		}
 	}
-	public void consultarConsumoUsuarioRestaurante(ConsultarConsumo consultarConsumo) throws Exception{
+	public void consultarConsumoV1UsuarioRestaurante(ConsultarConsumo consultarConsumo) throws Exception{
 		DAOConsultarConsumo daoConsultarConsumo = new DAOConsultarConsumo();	
 		try 
 		{
@@ -2950,7 +2950,7 @@ public class RotondAndesTM {
 			}
 		}
 	}
-	public void consultarConsumoAdministrador(ConsultarConsumo consultarConsumo) throws Exception{
+	public void consultarConsumoV1Administrador(ConsultarConsumo consultarConsumo) throws Exception{
 		DAOConsultarConsumo daoConsultarConsumo = new DAOConsultarConsumo();
 		try 
 		{

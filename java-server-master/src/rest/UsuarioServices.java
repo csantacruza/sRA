@@ -803,7 +803,7 @@ public class UsuarioServices {
 				if(cliente1 != null && cliente1.getContraseña().equals(verif.getUsuario().getContraseña()) && cliente1.getRol() == 1)
 				{
 					if(version == 1) {
-						tm.consultarConsumoCliente(verif);
+						tm.consultarConsumoV1Cliente(verif);
 					}else if(version == 2){
 
 					}else {
@@ -820,7 +820,7 @@ public class UsuarioServices {
 				if(cliente1 != null && cliente1.getContraseña().equals(verif.getUsuario().getContraseña()) && cliente1.getRol() == 2)
 				{
 					if(version == 1) {
-						tm.consultarConsumoUsuarioRestaurante(verif);
+						tm.consultarConsumoV1UsuarioRestaurante(verif);
 					}else if(version == 2){
 
 					}else {
@@ -837,7 +837,7 @@ public class UsuarioServices {
 				if(cliente1 != null && cliente1.getContraseña().equals(verif.getUsuario().getContraseña()) && cliente1.getRol() == 3)
 				{
 					if(version == 1) {
-						tm.consultarConsumoAdministrador(verif);
+						tm.consultarConsumoV1Administrador(verif);
 					}else if(version == 2){
 
 					}else {

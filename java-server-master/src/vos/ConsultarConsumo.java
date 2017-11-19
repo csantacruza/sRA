@@ -12,12 +12,14 @@ public class ConsultarConsumo {
 	@JsonProperty(value = "usuario")
 	private Usuario usuario;
 	/**
-	 * Orden ascendente o descendente
+	 * Ordenar atributo ascendente o descendente
+	 * EJ: (Nombre ASC)
 	 */
 	@JsonProperty(value= "ordenar")
 	private String ordenar;
 	/**
-	 * Agrupar por clasificación(Documento)
+	 * Agrupar por clasificación(Documento),elemento a grupar 
+	 * EJ: (Producto,tamal )
 	 */
 	@JsonProperty(value = "agrupar")
 	private String agrupar;

@@ -22,9 +22,12 @@ private Integer rol;
 @JsonProperty(value = "contraseña")
 private String contraseña;
 
-public Usuario(@JsonProperty(value = "id") Integer id,@JsonProperty(value = "nombre") String nombre,
-		@JsonProperty(value = "identificacion") Integer identificacion,@JsonProperty(value = "correo") String correo,
-		@JsonProperty(value = "rol")Integer rol,@JsonProperty(value = "contraseña")
+public Usuario(@JsonProperty(value = "id") Integer id,
+		@JsonProperty(value = "nombre") String nombre,
+		@JsonProperty(value = "identificacion") Integer identificacion,
+		@JsonProperty(value = "correo") String correo,
+		@JsonProperty(value = "rol")Integer rol,
+		@JsonProperty(value = "contraseña")
 String contraseña ){
 	super();
 	this.id = id;
