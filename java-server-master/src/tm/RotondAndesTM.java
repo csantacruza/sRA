@@ -2922,13 +2922,20 @@ public class RotondAndesTM {
 	}
 	public void consultarConsumoV1UsuarioRestaurante(ConsultarConsumo cC) throws Exception{
 		DAOConsultarConsumo daoConsultarConsumo = new DAOConsultarConsumo();	
+		DAOUsuario daoUsuario = new DAOUsuario();
 		try 
 		{
 			//////transaccion
 			this.conn = darConexion();
-			daoConsultarConsumo.setConn(conn);
-			daoConsultarConsumo.consultarConsumoV1UsuarioRestaurante(cC.getUsuario().getId(),cC.getRestaurante(),cC.getFechaInicial(),cC.getFechaFinal(),cC.getOrdenar(),cC.getAgrupar());
-			conn.commit();
+			daoUsuario.setConn(conn);
+			if(daoUsuario.validarUsuarioRestaurante(cC.getUsuario().getId(), cC.getRestaurante())== true) {
+				daoConsultarConsumo.setConn(conn);
+				daoConsultarConsumo.consultarConsumoV1UsuarioRestaurante(cC.getUsuario().getId(),cC.getRestaurante(),cC.getFechaInicial(),cC.getFechaFinal(),cC.getOrdenar(),cC.getAgrupar());
+				conn.commit();
+			}else {
+				conn.rollback();
+				throw new Exception("El usuario restaurante " + cC.getUsuario().getId() + " no tiene permisos para operar en el restaurante " + cC.getRestaurante() +"");
+			}
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());

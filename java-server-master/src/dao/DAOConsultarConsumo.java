@@ -171,8 +171,7 @@ public class DAOConsultarConsumo {
 		if(parte[0].equals("Datos del cliente")) {
 			String sql = "SELECT U.ID,NOMBRE,IDENTIFICACION,CORREO,ROL,COUNT(P.ID_USUARIO) AS PRODUCTOS_CONSUMIDOS";
 			sql += 	"FROM USUARIO U JOIN PEDIDO P ON U.ID = P.ID_USUARIO"; 
-			sql += 	"WHERE ID_USUARIO = " + id; 
-			sql += 	"AND NOMBRE_RESTAURANTE = '" +  restaurante + "'"; 
+			sql += 	"WHERE NOMBRE_RESTAURANTE = '" +  restaurante + "'"; 
 			sql += 	"AND SERVIDO = 'T' AND ESTADO = 'normal'"; 
 			sql += 	"AND FECHA BETWEEN '" + fechaIni+ "' AND '"+ fechaFin +"'"; 
 			sql += 	"GROUP BY U.ID,NOMBRE,IDENTIFICACION,CORREO,ROL";
@@ -198,8 +197,7 @@ public class DAOConsultarConsumo {
 		}else if(parte[0].equals("Producto")) {
 			String sql2 = "SELECT U.ID,NOMBRE,IDENTIFICACION,CORREO,ROL,COUNT(P.ID_USUARIO) AS PRODUCTOS_CONSUMIDOS"; 
 			sql2 += "FROM USUARIO U JOIN PEDIDO P ON U.ID = P.ID_USUARIO";
-			sql2 +="WHERE ID_USUARIO ="+ id;
-			sql2 +="AND NOMBRE_RESTAURANTE = '"+ restaurante + "'" ;
+			sql2 +="WHERE NOMBRE_RESTAURANTE = '"+ restaurante + "'" ;
 			sql2 +="AND NOMBRE_PRODUCTO = '"+ parte[1]+ "'" ;
 			sql2 +="AND SERVIDO = 'T' AND ESTADO = 'normal'"; 
 			sql2 +="AND FECHA BETWEEN '" +fechaIni + "' AND '" +fechaFin +"'";
@@ -240,8 +238,7 @@ public class DAOConsultarConsumo {
 				
 				String sql2 = "SELECT U.ID,NOMBRE,IDENTIFICACION,CORREO,ROL,COUNT(P.ID_USUARIO) AS PRODUCTOS_CONSUMIDOS"; 
 				sql2 += "FROM USUARIO U JOIN PEDIDO P ON U.ID = P.ID_USUARIO";
-				sql2 +="WHERE ID_USUARIO ="+ id;
-				sql2 +="AND NOMBRE_RESTAURANTE = '"+ restaurante + "'" ;
+				sql2 +="WHERE NOMBRE_RESTAURANTE = '"+ restaurante + "'" ;
 				sql2 +="AND NOMBRE_PRODUCTO = '"+ productos.get(i) + "'" ;
 				sql2 +="AND SERVIDO = 'T' AND ESTADO = 'normal'"; 
 				sql2 +="AND FECHA BETWEEN '" +fechaIni + "' AND '" +fechaFin +"'";
