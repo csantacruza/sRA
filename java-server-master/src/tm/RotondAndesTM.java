@@ -2920,14 +2920,14 @@ public class RotondAndesTM {
 			}
 		}
 	}
-	public void consultarConsumoV1UsuarioRestaurante(ConsultarConsumo consultarConsumo) throws Exception{
+	public void consultarConsumoV1UsuarioRestaurante(ConsultarConsumo cC) throws Exception{
 		DAOConsultarConsumo daoConsultarConsumo = new DAOConsultarConsumo();	
 		try 
 		{
 			//////transaccion
 			this.conn = darConexion();
 			daoConsultarConsumo.setConn(conn);
-			//metodo
+			daoConsultarConsumo.consultarConsumoV1UsuarioRestaurante(cC.getUsuario().getId(),cC.getRestaurante(),cC.getFechaInicial(),cC.getFechaFinal(),cC.getOrdenar(),cC.getAgrupar());
 			conn.commit();
 
 		} catch (SQLException e) {
