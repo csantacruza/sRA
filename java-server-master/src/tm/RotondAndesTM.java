@@ -2896,7 +2896,7 @@ public class RotondAndesTM {
 			//////transaccion
 			this.conn = darConexion();
 			daoConsultarConsumo.setConn(conn);
-			daoConsultarConsumo.consultarConsumoV1Cliente(cC.getUsuario().getId(),cC.getRestaurante(),cC.getFechaInicial(),cC.getFechaFinal(),cC.getOrdenar(),cC.getAgrupar());
+			cC.setClientes(daoConsultarConsumo.consultarConsumoV1Cliente(cC.getUsuario().getId(),cC.getRestaurante(),cC.getFechaInicial(),cC.getFechaFinal(),cC.getOrdenar(),cC.getAgrupar()));
 			conn.commit();
 
 
@@ -2930,7 +2930,7 @@ public class RotondAndesTM {
 			daoUsuario.setConn(conn);
 			if(daoUsuario.validarUsuarioRestaurante(cC.getUsuario().getId(), cC.getRestaurante())== true) {
 				daoConsultarConsumo.setConn(conn);
-				daoConsultarConsumo.consultarConsumoV1UsuarioRestaurante(cC.getUsuario().getId(),cC.getRestaurante(),cC.getFechaInicial(),cC.getFechaFinal(),cC.getOrdenar(),cC.getAgrupar());
+				cC.setClientes(daoConsultarConsumo.consultarConsumoV1UsuarioRestaurante(cC.getUsuario().getId(),cC.getRestaurante(),cC.getFechaInicial(),cC.getFechaFinal(),cC.getOrdenar(),cC.getAgrupar()));
 				conn.commit();
 			}else {
 				conn.rollback();
@@ -2965,7 +2965,7 @@ public class RotondAndesTM {
 			//////transaccion
 			this.conn = darConexion();
 			daoConsultarConsumo.setConn(conn);
-			daoConsultarConsumo.consultarConsumoV1UsuarioRestaurante(cC.getUsuario().getId(),cC.getRestaurante(),cC.getFechaInicial(),cC.getFechaFinal(),cC.getOrdenar(),cC.getAgrupar());
+			cC.setClientes(daoConsultarConsumo.consultarConsumoV1UsuarioRestaurante(cC.getUsuario().getId(),cC.getRestaurante(),cC.getFechaInicial(),cC.getFechaFinal(),cC.getOrdenar(),cC.getAgrupar()));
 			conn.commit();
 
 		} catch (SQLException e) {

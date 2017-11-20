@@ -1,5 +1,6 @@
 package vos;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,18 +12,6 @@ public class ConsultarConsumo {
 	 */
 	@JsonProperty(value = "usuario")
 	private Usuario usuario;
-	/**
-	 * Ordenar atributo ascendente o descendente
-	 * EJ: (Nombre ASC)
-	 */
-	@JsonProperty(value= "ordenar")
-	private String ordenar;
-	/**
-	 * Agrupar por clasificación(Documento),elemento a grupar 
-	 * EJ: (Producto,tamal )
-	 */
-	@JsonProperty(value = "agrupar")
-	private String agrupar;
 	/**
 	 * Restaurante del cual se quiere buscar
 	 */
@@ -39,6 +28,20 @@ public class ConsultarConsumo {
 	@JsonProperty(value = "fechaFinal")
 	private Date fechaFinal;
 	/**
+	 * Ordenar atributo ascendente o descendente
+	 * EJ:	(Nombre DESC)
+	 * 		(Nombre ASC)
+	 */
+	@JsonProperty(value= "ordenar")
+	private String ordenar;
+	/**
+	 * Agrupar por clasificación(Documento),elemento a grupar 
+	 * EJ: (Producto,tamal )
+	 */
+	@JsonProperty(value = "agrupar")
+	private String agrupar;
+	
+	/**
 	 * Respuesta a la busqueda.
 	 */
 	private List<Usuario> clientes;
@@ -48,15 +51,14 @@ public class ConsultarConsumo {
 			@JsonProperty(value = "fechaInicial") Date fechaInicial,
 			@JsonProperty(value = "fechaFinal") Date fechaFinal,
 			@JsonProperty(value= "ordenar") String ordenar,
-			@JsonProperty(value = "agrupar")String agrupar,
-			List<Usuario> clientes) {
+			@JsonProperty(value = "agrupar")String agrupar) {
 
 		super();
 		this.usuario = usuario;
 		this.restaurante = restaurante;
 		this.fechaInicial = fechaInicial;
 		this.fechaFinal = fechaFinal;
-		this.clientes = clientes;
+		this.clientes = new ArrayList<Usuario>();
 		this.ordenar = ordenar;
 		this.agrupar = agrupar;
 	}

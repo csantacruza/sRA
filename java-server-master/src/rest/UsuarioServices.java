@@ -787,7 +787,7 @@ public class UsuarioServices {
 	 * @return
 	 * @throws Exception
 	 */
-	@GET
+	@PUT
 	@Path("{rol: \\d+}/consultarConsumo/{version: \\d+}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -854,7 +854,7 @@ public class UsuarioServices {
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(verif).build();
+		return Response.status(200).entity(verif.getClientes()).build();
 	}
 
 }
