@@ -51,7 +51,8 @@ public class DAOConsultarConsumo {
 	public void setConn(Connection con){
 		this.conn = con;
 	}
-	public List<Usuario> consultarConsumoCliente(Integer id,String restaurante,Date fechaIni, Date fechaFin,String ordenar,String agrupar) throws Exception {
+	public List<Usuario> consultarConsumoV1Cliente(Integer id,String restaurante,Date fechaIni, Date fechaFin,String ordenar,String agrupar) throws Exception {
+		
 		ArrayList<Usuario> resp = new ArrayList<>();
 		String[] parte = agrupar.split(",");
 

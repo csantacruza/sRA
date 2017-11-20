@@ -2896,7 +2896,7 @@ public class RotondAndesTM {
 			//////transaccion
 			this.conn = darConexion();
 			daoConsultarConsumo.setConn(conn);
-			daoConsultarConsumo.consultarConsumoCliente(cC.getUsuario().getId(),cC.getRestaurante(),cC.getFechaInicial(),cC.getFechaFinal(),cC.getOrdenar(),cC.getAgrupar());
+			daoConsultarConsumo.consultarConsumoV1Cliente(cC.getUsuario().getId(),cC.getRestaurante(),cC.getFechaInicial(),cC.getFechaFinal(),cC.getOrdenar(),cC.getAgrupar());
 			conn.commit();
 
 
