@@ -238,14 +238,16 @@ public class DAOUsuario {
 
 	public boolean validarUsuarioRestaurante(Integer idUsuario, String nombreRestaurante) throws SQLException {
 		boolean validado = false;
-		String sql = "SELECT RESTAURANTE FROM USUARIO_RESTAURANTE WHERE ID= "+ idUsuario + "";
+		String sql = "SELECT NOMBRE FROM RESTAURANTE WHERE ID_ADMINISTRADOR= "+ idUsuario + "";
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
 		while (rs.next()){
-			String restaurante = rs.getString("RESTAUTANTE");
-			if(restaurante.equals("nombreRestaurante"))
+			String restaurante = rs.getString("NOMBRE");
+			if(restaurante.equals(nombreRestaurante)) {
 				validado = true;
+				break;
+			}
 		}
 		return validado;
 		

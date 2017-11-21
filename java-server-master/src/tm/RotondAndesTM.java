@@ -2889,37 +2889,6 @@ public class RotondAndesTM {
 			}
 		}
 	}
-	public void consultarConsumoV1Cliente(ConsultarConsumo cC) throws Exception{
-		DAOConsultarConsumo daoConsultarConsumo = new DAOConsultarConsumo();	
-		try 
-		{
-			//////transaccion
-			this.conn = darConexion();
-			daoConsultarConsumo.setConn(conn);
-			cC.setClientes(daoConsultarConsumo.consultarConsumoV1Cliente(cC.getUsuario().getId(),cC.getRestaurante(),cC.getFechaInicial(),cC.getFechaFinal(),cC.getOrdenar(),cC.getAgrupar()));
-			conn.commit();
-
-
-		} catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} finally {
-			try {
-				daoConsultarConsumo.cerrarRecursos();
-				if(this.conn!=null)
-					this.conn.close();
-			} catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-	}
 	public void consultarConsumoV1UsuarioRestaurante(ConsultarConsumo cC) throws Exception{
 		DAOConsultarConsumo daoConsultarConsumo = new DAOConsultarConsumo();	
 		DAOUsuario daoUsuario = new DAOUsuario();
@@ -2966,6 +2935,74 @@ public class RotondAndesTM {
 			this.conn = darConexion();
 			daoConsultarConsumo.setConn(conn);
 			cC.setClientes(daoConsultarConsumo.consultarConsumoV1UsuarioRestaurante(cC.getUsuario().getId(),cC.getRestaurante(),cC.getFechaInicial(),cC.getFechaFinal(),cC.getOrdenar(),cC.getAgrupar()));
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoConsultarConsumo.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	public void consultarConsumoV2UsuarioRestaurante(ConsultarConsumo cC) throws Exception{
+		DAOConsultarConsumo daoConsultarConsumo = new DAOConsultarConsumo();	
+		DAOUsuario daoUsuario = new DAOUsuario();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoUsuario.setConn(conn);
+			if(daoUsuario.validarUsuarioRestaurante(cC.getUsuario().getId(), cC.getRestaurante())== true) {
+				daoConsultarConsumo.setConn(conn);
+				cC.setClientes(daoConsultarConsumo.consultarConsumoV2UsuarioRestaurante(cC.getUsuario().getId(),cC.getRestaurante(),cC.getFechaInicial(),cC.getFechaFinal(),cC.getOrdenar(),cC.getAgrupar()));
+				conn.commit();
+			}else {
+				conn.rollback();
+				throw new Exception("El usuario restaurante " + cC.getUsuario().getId() + " no tiene permisos para operar en el restaurante " + cC.getRestaurante() +"");
+			}
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoUsuario.cerrarRecursos();
+				daoConsultarConsumo.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	public void consultarConsumoV2Administrador(ConsultarConsumo cC) throws Exception{
+		DAOConsultarConsumo daoConsultarConsumo = new DAOConsultarConsumo();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoConsultarConsumo.setConn(conn);
+			cC.setClientes(daoConsultarConsumo.consultarConsumoV2UsuarioRestaurante(cC.getUsuario().getId(),cC.getRestaurante(),cC.getFechaInicial(),cC.getFechaFinal(),cC.getOrdenar(),cC.getAgrupar()));
 			conn.commit();
 
 		} catch (SQLException e) {

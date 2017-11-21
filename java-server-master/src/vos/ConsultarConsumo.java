@@ -1,7 +1,6 @@
 package vos;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -21,12 +20,12 @@ public class ConsultarConsumo {
 	 * Rango de fecha - fecha inicial
 	 */
 	@JsonProperty(value = "fechaInicial")
-	private Date fechaInicial;
+	private String fechaInicial;
 	/**
 	 * Rango de fecha - fecha final
 	 */
 	@JsonProperty(value = "fechaFinal")
-	private Date fechaFinal;
+	private String fechaFinal;
 	/**
 	 * Ordenar atributo ascendente o descendente
 	 * EJ:	(Nombre DESC)
@@ -48,8 +47,8 @@ public class ConsultarConsumo {
 
 	public ConsultarConsumo(@JsonProperty(value = "usuario")Usuario usuario,
 			@JsonProperty(value = "restaurante")String restaurante,
-			@JsonProperty(value = "fechaInicial") Date fechaInicial,
-			@JsonProperty(value = "fechaFinal") Date fechaFinal,
+			@JsonProperty(value = "fechaInicial") String fechaInicial,
+			@JsonProperty(value = "fechaFinal") String fechaFinal,
 			@JsonProperty(value= "ordenar") String ordenar,
 			@JsonProperty(value = "agrupar")String agrupar) {
 
@@ -97,19 +96,19 @@ public class ConsultarConsumo {
 		this.restaurante = restaurante;
 	}
 
-	public Date getFechaInicial() {
+	public String getFechaInicial() {
 		return fechaInicial;
 	}
 
-	public void setFechaInicial(Date fechaInicial) {
+	public void setFechaInicial(String fechaInicial) {
 		this.fechaInicial = fechaInicial;
 	}
 
-	public Date getFechaFinal() {
+	public String getFechaFinal() {
 		return fechaFinal;
 	}
 
-	public void setFechaFinal(Date fechaFinal) {
+	public void setFechaFinal(String fechaFinal) {
 		this.fechaFinal = fechaFinal;
 	}
 

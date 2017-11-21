@@ -24,6 +24,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 import tm.RotondAndesTM;
 import vos.CancelarPedido;
+import vos.ConsultarBuenosClientes;
 import vos.ConsultarConsumo;
 import vos.Pedido;
 import vos.Producto;
@@ -797,24 +798,7 @@ public class UsuarioServices {
 
 		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
-			if(rol == 1){
-				Usuario cliente1 = tm.buscarUsuarioPorId(verif.getUsuario().getId());
-
-				if(cliente1 != null && cliente1.getContraseña().equals(verif.getUsuario().getContraseña()) && cliente1.getRol() == 1)
-				{
-					if(version == 1) {
-						tm.consultarConsumoV1Cliente(verif);
-					}else if(version == 2){
-
-					}else {
-						throw new Exception("Dirección URL incorrecta");
-					}
-
-				}
-				else{
-					throw new Exception("Id o contraseña invalido");
-				}
-			}else if(rol == 2){
+			if(rol == 2){
 				Usuario cliente1 = tm.buscarUsuarioPorId(verif.getUsuario().getId());
 
 				if(cliente1 != null && cliente1.getContraseña().equals(verif.getUsuario().getContraseña()) && cliente1.getRol() == 2)
@@ -822,7 +806,7 @@ public class UsuarioServices {
 					if(version == 1) {
 						tm.consultarConsumoV1UsuarioRestaurante(verif);
 					}else if(version == 2){
-
+						tm.consultarConsumoV2UsuarioRestaurante(verif);
 					}else {
 						throw new Exception("Dirección URL incorrecta");
 					}
@@ -839,7 +823,7 @@ public class UsuarioServices {
 					if(version == 1) {
 						tm.consultarConsumoV1Administrador(verif);
 					}else if(version == 2){
-
+						tm.consultarConsumoV2Administrador(verif);
 					}else {
 						throw new Exception("Dirección URL incorrecta");
 					}
@@ -849,13 +833,49 @@ public class UsuarioServices {
 					throw new Exception("Id o contraseña invalido");
 				}
 			}else{
-				throw new Exception("Dirección URL incorrecta");
+				throw new Exception("No tiene los permisos para acceder a esta consulta");
 			}
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(verif.getClientes()).build();
 	}
+	@PUT
+	@Path("{rol: \\d+}/consultarBuenosClientes/{tipo}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response consultarBuenosClientes(@PathParam("rol")Integer rol,
+			ConsultarBuenosClientes verif,@QueryParam("tipo")String tipo ) throws Exception {
 
+
+		RotondAndesTM tm = new RotondAndesTM(getPath());
+		try {
+			 if(rol == 3){
+				Usuario cliente1 = tm.buscarUsuarioPorId(verif.getAdministrador().getId());
+
+				if(cliente1 != null && cliente1.getContraseña().equals(verif.getAdministrador().getContraseña()) && cliente1.getRol() == 3)
+				{
+					if(tipo.equals("US")) {
+						tm.consultarBuenosClientesUS(verif);
+					}else if(tipo.equals("PC")){
+						tm.consultarBuenosClientesPC(verif);
+					}else if(tipo.equals("NM")){
+						tm.consultarBuenosClientesNM();
+					}else {
+						throw new Exception("Dirección URL incorrecta");
+					}
+
+				}
+				else{
+					throw new Exception("Id o contraseña invalido");
+				}
+			}else{
+				throw new Exception("No tiene los permisos para acceder a esta consulta");
+			}
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(verif.getClientes()).build();
+	}
 }
 
