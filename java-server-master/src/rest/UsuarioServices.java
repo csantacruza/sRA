@@ -845,7 +845,7 @@ public class UsuarioServices {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response consultarBuenosClientes(@PathParam("rol")Integer rol,
-			ConsultarBuenosClientes verif,@QueryParam("tipo")String tipo ) throws Exception {
+			ConsultarBuenosClientes verif ) throws Exception {
 
 
 		RotondAndesTM tm = new RotondAndesTM(getPath());

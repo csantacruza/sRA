@@ -8,6 +8,11 @@ public class ConsultarBuenosClientes {
 	@JsonProperty(value = "administrador")
 	private Usuario administrador;
 	/**
+	 * El tipo puede ser una vez a la semana o producto costos o nunca consumen menus.
+	 */
+	@JsonProperty(value = "tipo")
+	private String tipo;
+	/**
 	 * Respuesta a la consulta
 	 */
 	private List<Usuario> clientes;
@@ -28,6 +33,12 @@ public class ConsultarBuenosClientes {
 	}
 	public void setClientes(List<Usuario> clientes) {
 		this.clientes = clientes;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	
 	
