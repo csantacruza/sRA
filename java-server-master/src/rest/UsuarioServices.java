@@ -26,6 +26,7 @@ import tm.RotondAndesTM;
 import vos.CancelarPedido;
 import vos.ConsultarBuenosClientes;
 import vos.ConsultarConsumo;
+import vos.ConsultarFuncionamiento;
 import vos.Pedido;
 import vos.Producto;
 import vos.ProductoIngrediente;
@@ -841,7 +842,7 @@ public class UsuarioServices {
 		return Response.status(200).entity(verif.getClientes()).build();
 	}
 	@PUT
-	@Path("{rol: \\d+}/consultarBuenosClientes/{tipo}")
+	@Path("{rol: \\d+}/consultarBuenosClientes")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response consultarBuenosClientes(@PathParam("rol")Integer rol,
@@ -855,14 +856,12 @@ public class UsuarioServices {
 
 				if(cliente1 != null && cliente1.getContraseña().equals(verif.getAdministrador().getContraseña()) && cliente1.getRol() == 3)
 				{
-					if(tipo.equals("US")) {
-						tm.consultarBuenosClientesUS(verif);
-					}else if(tipo.equals("PC")){
+					if(verif.getTipo().equals("PC")){
 						tm.consultarBuenosClientesPC(verif);
-					}else if(tipo.equals("NM")){
-						tm.consultarBuenosClientesNM();
+					}else if(verif.getTipo().equals("NM")){
+						tm.consultarBuenosClientesNM(verif);
 					}else {
-						throw new Exception("Dirección URL incorrecta");
+						throw new Exception("El tipo en esta consulta no existe");
 					}
 
 				}
@@ -877,5 +876,37 @@ public class UsuarioServices {
 		}
 		return Response.status(200).entity(verif.getClientes()).build();
 	}
+	
+	@PUT
+	@Path("{rol: \\d+}/consultarFuncionamiento")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response consultarFuncionamiento(@PathParam("rol")Integer rol,
+			ConsultarFuncionamiento verif ) throws Exception {
+
+
+		RotondAndesTM tm = new RotondAndesTM(getPath());
+		try {
+			 if(rol == 3){
+				Usuario cliente1 = tm.buscarUsuarioPorId(verif.getAdministrador().getId());
+
+				if(cliente1 != null && cliente1.getContraseña().equals(verif.getAdministrador().getContraseña()) && cliente1.getRol() == 3)
+				{
+					tm.consultarFuncionamiento(verif);
+				}
+				else{
+					throw new Exception("Id o contraseña invalido");
+				}
+			}else{
+				throw new Exception("No tiene los permisos para acceder a esta consulta");
+			}
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(verif.getRespuesta()).build();
+	}
+	
+	
+	
 }
 

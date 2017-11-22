@@ -1,5 +1,6 @@
 package vos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -17,10 +18,11 @@ public class ConsultarBuenosClientes {
 	 */
 	private List<Usuario> clientes;
 	
-	public ConsultarBuenosClientes(@JsonProperty(value = "administrador")Usuario administrador, List<Usuario> clientes) {
+	public ConsultarBuenosClientes(@JsonProperty(value = "administrador")Usuario administrador,@JsonProperty(value = "tipo")String tipo) {
 		super();
 		this.administrador = administrador;
-		this.clientes = clientes;
+		this.tipo = tipo;
+		this.clientes = new ArrayList<Usuario>();
 	}
 	public Usuario getAdministrador() {
 		return administrador;

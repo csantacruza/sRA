@@ -20,7 +20,9 @@ import org.omg.DynamicAny.DynAnyPackage.InvalidValue;
 import org.omg.DynamicAny.DynAnyPackage.TypeMismatch;
 
 import dao.DAOCategorias;
+import dao.DAOConsultarBuenosClientes;
 import dao.DAOConsultarConsumo;
+import dao.DAOConsultarFuncionamiento;
 import dao.DAOEspacios;
 import dao.DAOIngredientes;
 import dao.DAOMenuProducto;
@@ -41,7 +43,10 @@ import dao.DAOZonas;
 import dao.DAOUsuario;
 import dao.DAOZonas;
 import vos.Categoria;
+import vos.ConsultarBuenosClientes;
 import vos.ConsultarConsumo;
+import vos.ConsultarFuncionamiento;
+import vos.ConsultarFuncionamientoRespuesta;
 import vos.Espacios;
 import vos.Ingrediente;
 import vos.Menu;
@@ -3016,6 +3021,97 @@ public class RotondAndesTM {
 		} finally {
 			try {
 				daoConsultarConsumo.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	public void consultarBuenosClientesPC(ConsultarBuenosClientes cC) throws Exception{
+		DAOConsultarBuenosClientes daoConsultarBuenosClientes = new DAOConsultarBuenosClientes();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoConsultarBuenosClientes.setConn(conn);
+			cC.setClientes(daoConsultarBuenosClientes.consultarBuenosClientesPC());
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoConsultarBuenosClientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	public void consultarBuenosClientesNM(ConsultarBuenosClientes cC) throws Exception{
+		DAOConsultarBuenosClientes daoConsultarBuenosClientes = new DAOConsultarBuenosClientes();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoConsultarBuenosClientes.setConn(conn);
+			cC.setClientes(daoConsultarBuenosClientes.consultarBuenosClientesNM());
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoConsultarBuenosClientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	public void consultarFuncionamiento(ConsultarFuncionamiento cF) throws Exception {
+		DAOConsultarFuncionamiento daoConsultarFuncionamiento = new DAOConsultarFuncionamiento();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoConsultarFuncionamiento.setConn(conn);
+			cF.setRespuesta(daoConsultarFuncionamiento.consultarFuncionamiento());
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoConsultarFuncionamiento.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
